@@ -5,8 +5,10 @@ using RosMessageTypes.Nav;
 
 public class OdomSubscriber : MonoBehaviour
 {
-    [SerializeField] private Turtlesim turtlesim;
-    [SerializeField] private string topicName;
+    [SerializeField]
+    private Turtlesim turtlesim;
+    [SerializeField]
+    private string topicName;
     private ROSConnection ros;
     private Pose initialPose;
     private bool receivedFisrtMsg;
