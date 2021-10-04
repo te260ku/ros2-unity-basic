@@ -31,4 +31,9 @@ public class Turtlesim : MonoBehaviour
         transform.position = pos;
         transform.rotation = rot; 
     }
+
+    public Pose GetPose() {
+        Pose pose = new Pose(transform.position, transform.rotation);
+        return pose;
+    }
 }
