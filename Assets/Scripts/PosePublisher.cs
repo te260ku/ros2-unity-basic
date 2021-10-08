@@ -15,7 +15,7 @@ public class PosePublisher : MonoBehaviour
 
     void Start()
     {
-        ros = ROSConnection.instance;
+        ros = ROSConnection.GetOrCreateInstance();
         ros.RegisterPublisher<PoseMsg>(topicName); 
     }
 
@@ -41,7 +41,7 @@ public class PosePublisher : MonoBehaviour
 
     private void SendPoseMsg(PoseMsg msg)
     {
-        ros.Send(topicName, msg);
+        ros.Publish(topicName, msg);
     }
     
 }

@@ -15,7 +15,7 @@ public class TwistPublisher : MonoBehaviour
 
     void Start()
     {
-        ros = ROSConnection.instance;
+        ros = ROSConnection.GetOrCreateInstance();
         ros.RegisterPublisher<TwistMsg>(topicName); 
     }
 
@@ -63,6 +63,6 @@ public class TwistPublisher : MonoBehaviour
 
     private void SendTwistMsg(TwistMsg msg)
     {
-        ros.Send(topicName, msg);
+        ros.Publish(topicName, msg);
     }
 }

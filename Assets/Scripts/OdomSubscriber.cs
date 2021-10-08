@@ -15,7 +15,7 @@ public class OdomSubscriber : MonoBehaviour
 
     void Start()
     {
-        ros = ROSConnection.instance;
+        ros = ROSConnection.GetOrCreateInstance();
         ros.Subscribe<OdometryMsg>(topicName, ReceiveOdomMsg);
     }
 

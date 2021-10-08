@@ -13,7 +13,7 @@ public class TwistSubscriber : MonoBehaviour
     
     void Start()
     {
-        ros = ROSConnection.instance;
+        ros = ROSConnection.GetOrCreateInstance();
         // topicNameに入力したトピック名をサブスクライブするように設定
         // ReceiveTwistMsg関数をコールバック関数として指定
         ros.Subscribe<TwistMsg>(topicName, ReceiveTwistMsg);

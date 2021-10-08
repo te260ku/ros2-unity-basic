@@ -12,7 +12,7 @@ public class ImageSubscriber : MonoBehaviour
     
     void Start()
     {
-        ros = ROSConnection.instance;
+        ros = ROSConnection.GetOrCreateInstance();
         ros.Subscribe<ImageMsg>(topicName, ReceiveMsg);
 
         tex = new Texture2D(640, 480, TextureFormat.RGB24, false);
