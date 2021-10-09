@@ -1,0 +1,40 @@
+[0.205s] Invoking command in '/home/ubuntu2004/ROS2UnityBacic/ros2_unity_basic_ws/src/unity_follower': PYTHONPATH=/home/ubuntu2004/ROS2UnityBacic/ros2_unity_basic_ws/install/unity_follower/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py egg_info --egg-base ../../build/unity_follower build --build-base /home/ubuntu2004/ROS2UnityBacic/ros2_unity_basic_ws/build/unity_follower/build install --prefix /home/ubuntu2004/ROS2UnityBacic/ros2_unity_basic_ws/install/unity_follower --record /home/ubuntu2004/ROS2UnityBacic/ros2_unity_basic_ws/build/unity_follower/install.log --single-version-externally-managed
+[0.383s] running egg_info
+[0.383s] creating ../../build/unity_follower/unity_follower.egg-info
+[0.383s] writing ../../build/unity_follower/unity_follower.egg-info/PKG-INFO
+[0.384s] writing dependency_links to ../../build/unity_follower/unity_follower.egg-info/dependency_links.txt
+[0.384s] writing entry points to ../../build/unity_follower/unity_follower.egg-info/entry_points.txt
+[0.384s] writing requirements to ../../build/unity_follower/unity_follower.egg-info/requires.txt
+[0.384s] writing top-level names to ../../build/unity_follower/unity_follower.egg-info/top_level.txt
+[0.385s] writing manifest file '../../build/unity_follower/unity_follower.egg-info/SOURCES.txt'
+[0.412s] reading manifest file '../../build/unity_follower/unity_follower.egg-info/SOURCES.txt'
+[0.412s] writing manifest file '../../build/unity_follower/unity_follower.egg-info/SOURCES.txt'
+[0.413s] running build
+[0.413s] running build_py
+[0.413s] creating /home/ubuntu2004/ROS2UnityBacic/ros2_unity_basic_ws/build/unity_follower/build
+[0.413s] creating /home/ubuntu2004/ROS2UnityBacic/ros2_unity_basic_ws/build/unity_follower/build/lib
+[0.413s] creating /home/ubuntu2004/ROS2UnityBacic/ros2_unity_basic_ws/build/unity_follower/build/lib/unity_follower
+[0.413s] copying unity_follower/__init__.py -> /home/ubuntu2004/ROS2UnityBacic/ros2_unity_basic_ws/build/unity_follower/build/lib/unity_follower
+[0.413s] copying unity_follower/unity_follower.py -> /home/ubuntu2004/ROS2UnityBacic/ros2_unity_basic_ws/build/unity_follower/build/lib/unity_follower
+[0.413s] copying unity_follower/pose_functions.py -> /home/ubuntu2004/ROS2UnityBacic/ros2_unity_basic_ws/build/unity_follower/build/lib/unity_follower
+[0.413s] running install
+[0.414s] running install_lib
+[0.415s] creating /home/ubuntu2004/ROS2UnityBacic/ros2_unity_basic_ws/install/unity_follower/lib/python3.8/site-packages/unity_follower
+[0.415s] copying /home/ubuntu2004/ROS2UnityBacic/ros2_unity_basic_ws/build/unity_follower/build/lib/unity_follower/__init__.py -> /home/ubuntu2004/ROS2UnityBacic/ros2_unity_basic_ws/install/unity_follower/lib/python3.8/site-packages/unity_follower
+[0.415s] copying /home/ubuntu2004/ROS2UnityBacic/ros2_unity_basic_ws/build/unity_follower/build/lib/unity_follower/unity_follower.py -> /home/ubuntu2004/ROS2UnityBacic/ros2_unity_basic_ws/install/unity_follower/lib/python3.8/site-packages/unity_follower
+[0.415s] copying /home/ubuntu2004/ROS2UnityBacic/ros2_unity_basic_ws/build/unity_follower/build/lib/unity_follower/pose_functions.py -> /home/ubuntu2004/ROS2UnityBacic/ros2_unity_basic_ws/install/unity_follower/lib/python3.8/site-packages/unity_follower
+[0.415s] byte-compiling /home/ubuntu2004/ROS2UnityBacic/ros2_unity_basic_ws/install/unity_follower/lib/python3.8/site-packages/unity_follower/__init__.py to __init__.cpython-38.pyc
+[0.416s] byte-compiling /home/ubuntu2004/ROS2UnityBacic/ros2_unity_basic_ws/install/unity_follower/lib/python3.8/site-packages/unity_follower/unity_follower.py to unity_follower.cpython-38.pyc
+[0.417s] byte-compiling /home/ubuntu2004/ROS2UnityBacic/ros2_unity_basic_ws/install/unity_follower/lib/python3.8/site-packages/unity_follower/pose_functions.py to pose_functions.cpython-38.pyc
+[0.417s] running install_data
+[0.418s] creating /home/ubuntu2004/ROS2UnityBacic/ros2_unity_basic_ws/install/unity_follower/share/ament_index
+[0.418s] creating /home/ubuntu2004/ROS2UnityBacic/ros2_unity_basic_ws/install/unity_follower/share/ament_index/resource_index
+[0.418s] creating /home/ubuntu2004/ROS2UnityBacic/ros2_unity_basic_ws/install/unity_follower/share/ament_index/resource_index/packages
+[0.418s] copying resource/unity_follower -> /home/ubuntu2004/ROS2UnityBacic/ros2_unity_basic_ws/install/unity_follower/share/ament_index/resource_index/packages
+[0.418s] copying package.xml -> /home/ubuntu2004/ROS2UnityBacic/ros2_unity_basic_ws/install/unity_follower/share/unity_follower
+[0.418s] running install_egg_info
+[0.419s] Copying ../../build/unity_follower/unity_follower.egg-info to /home/ubuntu2004/ROS2UnityBacic/ros2_unity_basic_ws/install/unity_follower/lib/python3.8/site-packages/unity_follower-0.0.0-py3.8.egg-info
+[0.420s] running install_scripts
+[0.436s] Installing unity_follower script to /home/ubuntu2004/ROS2UnityBacic/ros2_unity_basic_ws/install/unity_follower/lib/unity_follower
+[0.436s] writing list of installed files to '/home/ubuntu2004/ROS2UnityBacic/ros2_unity_basic_ws/build/unity_follower/install.log'
+[0.452s] Invoked command in '/home/ubuntu2004/ROS2UnityBacic/ros2_unity_basic_ws/src/unity_follower' returned '0': PYTHONPATH=/home/ubuntu2004/ROS2UnityBacic/ros2_unity_basic_ws/install/unity_follower/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py egg_info --egg-base ../../build/unity_follower build --build-base /home/ubuntu2004/ROS2UnityBacic/ros2_unity_basic_ws/build/unity_follower/build install --prefix /home/ubuntu2004/ROS2UnityBacic/ros2_unity_basic_ws/install/unity_follower --record /home/ubuntu2004/ROS2UnityBacic/ros2_unity_basic_ws/build/unity_follower/install.log --single-version-externally-managed
