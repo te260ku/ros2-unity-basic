@@ -34,22 +34,15 @@ class UnityFollowerNode(Node):
         self.timer = self.create_timer(timer_period, self.publish_twist)
 
 
+        self.twist = Twist()
 
         self.receivedFisrtOdom = False
-
-        self.twist = Twist()
         self.ros_pose = Pose()
         self.unity_pose = Pose()
 
-        self.linear = 0.0
-        self.angular = 0.0
-
-        self.PID_Yaw = pid_controller(0.5, 0.00, 0.01, 0.3)
-        # self.PID_Distance = pid_controller(0.02, 0.1, 1.6, 0.5)
-        self.PID_Distance = pid_controller(0.02, 0.0, 0.0, 0.5)
-
-
-    
+        self.PID_Pos = pid_controller(0.02, 0.1, 1.6, 0.5)
+        self.PID_Rot = pid_controller(0.5, 0.00, 0.01, 0.3)
+        
 
 
     def receive_unity_pose(self, msg):
@@ -103,12 +96,7 @@ class UnityFollowerNode(Node):
         gap_pos_y = self.unity_pose.position.y - self.ros_pose.position.y
         distance = calc_distance([self.unity_pose.position.x, self.unity_pose.position.y], [self.ros_pose.position.x, self.ros_pose.position.y])
 
-        # if distance > 0.1:
-        #     self.twist.linear.x = 0.2 if gap_pos_x > 0.1 or gap_pos_y > 0.1 else -0.2
-        # else:
-        #     self.twist.linear.x = 0.0
-
-        out_pos = self.PID_Distance.set_current_error(distance)
+        out_pos = self.PID_Pos.set_current_error(distance)
         print('out_pos: "%s"' % out_pos)
 
         if distance > 0.05:
@@ -124,8 +112,8 @@ class UnityFollowerNode(Node):
         
         gap_rot = yaw_unity - yaw_ros
 
-        out_rot = self.PID_Yaw.set_current_error(gap_rot)
-        # print('out_rot: "%s"' % out_rot)
+        out_rot = self.PID_Rot.set_current_error(gap_rot)
+        print('out_rot: "%s"' % out_rot)
 
         if out_rot > 0.008 or out_rot < -0.008:
             self.twist.angular.z = out_rot
@@ -136,6 +124,7 @@ class UnityFollowerNode(Node):
         msg = self.twist
         self.publisher_twist.publish(msg)
     
+
 
 def main(args=None):
     rclpy.init(args=args)
