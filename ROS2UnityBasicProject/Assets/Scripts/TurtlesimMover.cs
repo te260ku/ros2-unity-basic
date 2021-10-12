@@ -5,10 +5,10 @@ using UnityEngine;
 public class TurtlesimMover : MonoBehaviour
 {
     [SerializeField]
-    private float moveSpeed = 0.05f;
+    private float moveSpeed = 0.1f;
     [SerializeField]
     private int rotationSpeed = 30;
-    Dictionary<string, bool> move = new Dictionary<string, bool>
+    Dictionary<string, bool> moveKey = new Dictionary<string, bool>
     {
         {"up", false },
         {"down", false },
@@ -16,34 +16,29 @@ public class TurtlesimMover : MonoBehaviour
         {"left", false },
     };
  
-    void Start()
-    {
- 
-    }
- 
     void Update()
     {
-        move["up"] = Input.GetKey(KeyCode.UpArrow);
-        move["down"] = Input.GetKey(KeyCode.DownArrow);
-        move["right"] = Input.GetKey(KeyCode.RightArrow);
-        move["left"] = Input.GetKey(KeyCode.LeftArrow);
+        moveKey["up"] = Input.GetKey(KeyCode.UpArrow);
+        moveKey["down"] = Input.GetKey(KeyCode.DownArrow);
+        moveKey["right"] = Input.GetKey(KeyCode.RightArrow);
+        moveKey["left"] = Input.GetKey(KeyCode.LeftArrow);
     }
  
     void FixedUpdate()
     {
-        if (move["up"])
+        if (moveKey["up"])
         {
-            transform.Translate(0f, 0f, moveSpeed);
+            transform.Translate(0f, 0f, moveSpeed * Time.deltaTime);
         }
-        if (move["down"])
+        if (moveKey["down"])
         {
-            transform.Translate(0f, 0f, -moveSpeed);
+            transform.Translate(0f, 0f, -moveSpeed * Time.deltaTime);
         }
-        if (move["right"])
+        if (moveKey["right"])
         {
             transform.Rotate(new Vector3(0, rotationSpeed, 0) * Time.deltaTime, Space.World);
         }
-        if (move["left"])
+        if (moveKey["left"])
         {
             transform.Rotate(new Vector3(0, -rotationSpeed, 0) * Time.deltaTime, Space.World);
         }
