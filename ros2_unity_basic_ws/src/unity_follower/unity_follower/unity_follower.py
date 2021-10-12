@@ -4,6 +4,7 @@ from geometry_msgs.msg import Twist
 from geometry_msgs.msg import Pose
 from nav_msgs.msg import Odometry
 from unity_follower.pose_functions import *
+from unity_follower.pid_controller import *
 
 
 class UnityFollowerNode(Node):
@@ -44,7 +45,8 @@ class UnityFollowerNode(Node):
         self.angular = 0.0
 
         self.PID_Yaw = pid_controller(0.5, 0.00, 0.01, 0.3)
-        self.PID_Distance = pid_controller(0.001, 0.1, 1.6, 0.5)
+        # self.PID_Distance = pid_controller(0.02, 0.1, 1.6, 0.5)
+        self.PID_Distance = pid_controller(0.02, 0.0, 0.0, 0.5)
 
 
     
@@ -101,10 +103,19 @@ class UnityFollowerNode(Node):
         gap_pos_y = self.unity_pose.position.y - self.ros_pose.position.y
         distance = calc_distance([self.unity_pose.position.x, self.unity_pose.position.y], [self.ros_pose.position.x, self.ros_pose.position.y])
 
-        if distance > 0.1:
-            self.twist.linear.x = 0.2 if gap_pos_x > 0.1 or gap_pos_y > 0.1 else -0.2
+        # if distance > 0.1:
+        #     self.twist.linear.x = 0.2 if gap_pos_x > 0.1 or gap_pos_y > 0.1 else -0.2
+        # else:
+        #     self.twist.linear.x = 0.0
+
+        out_pos = self.PID_Distance.set_current_error(distance)
+        print('out_pos: "%s"' % out_pos)
+
+        if distance > 0.05:
+            self.twist.linear.x = out_pos if gap_pos_x > 0.05 or gap_pos_y > 0.05 else -out_pos
         else:
             self.twist.linear.x = 0.0
+
 
 
         # rotation
@@ -125,41 +136,6 @@ class UnityFollowerNode(Node):
         msg = self.twist
         self.publisher_twist.publish(msg)
     
-
-
-class pid_controller:
-
-    def __init__(self, p_coef, i_coef, d_coef, limit_out):
-
-        self.kp = p_coef
-        self.ki = i_coef
-        self.kd = d_coef
-        self._limit_out = limit_out
-        self._previous_error = 0.0
-
-    def set_current_error(self, error):
-
-        output0 = error * self.kp
-
-        error_diff = error - self._previous_error
-        outpu1 = self.kd * error_diff
-
-        error_intr = error + self._previous_error
-        outpu2 = self.ki * error_intr
-
-        self._previous_error = error
-
-        output = output0 + outpu1 + outpu2
-
-        if output > self._limit_out:
-            output = self._limit_out
-        elif output < (-self._limit_out):
-            output = (-self._limit_out)
-
-        return output
-
-
-
 
 def main(args=None):
     rclpy.init(args=args)
