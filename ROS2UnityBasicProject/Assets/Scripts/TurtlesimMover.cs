@@ -8,13 +8,18 @@ public class TurtlesimMover : MonoBehaviour
     private float moveSpeed = 0.1f;
     [SerializeField]
     private int rotationSpeed = 30;
-    Dictionary<string, bool> moveKey = new Dictionary<string, bool>
+    private Dictionary<string, bool> moveKey = new Dictionary<string, bool>
     {
         {"up", false },
         {"down", false },
         {"right", false },
         {"left", false },
     };
+    private Vector3 lastPos;
+
+    void Start() {
+        lastPos = transform.position;
+    }
  
     void Update()
     {
@@ -42,5 +47,11 @@ public class TurtlesimMover : MonoBehaviour
         {
             transform.Rotate(new Vector3(0, -rotationSpeed, 0) * Time.deltaTime, Space.World);
         }
+
+
+        var worldPosDiff = transform.position - lastPos;
+        var localPosDiff = transform.InverseTransformDirection(worldPosDiff);
+        lastPos = transform.position;
+
     }
 }
