@@ -15,11 +15,6 @@ public class TurtlesimMover : MonoBehaviour
         {"right", false },
         {"left", false },
     };
-    private Vector3 lastPos;
-
-    void Start() {
-        lastPos = transform.position;
-    }
  
     void Update()
     {
@@ -47,11 +42,6 @@ public class TurtlesimMover : MonoBehaviour
         {
             transform.Rotate(new Vector3(0, -rotationSpeed, 0) * Time.deltaTime, Space.World);
         }
-
-
-        var worldPosDiff = transform.position - lastPos;
-        var localPosDiff = transform.InverseTransformDirection(worldPosDiff);
-        lastPos = transform.position;
 
     }
 }
