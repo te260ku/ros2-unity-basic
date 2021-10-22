@@ -6,10 +6,45 @@ public class Turtlesim : MonoBehaviour
     private Vector3 linearSpeed;
     private Vector3 angularSpeed;
     private Rigidbody rb;
+    private Vector3 lastPos;
+    private Vector3 lastRot;
+    private (Vector3 linear, Vector3 angular) velocity = (new Vector3(), new Vector3());
 
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+
+        lastPos = transform.position;
+        lastRot = transform.rotation.eulerAngles;
+    }
+
+    void Update()
+    {
+        
+    }
+
+    private void CalculateVelocity() {
+        // 直進速度を計算
+        var worldPosDiff = transform.position - lastPos;
+        var localPosDiff = transform.InverseTransformDirection(worldPosDiff);
+        lastPos = transform.position;
+
+        // 角速度を計算
+        var worldRotDiff = transform.rotation.eulerAngles - lastRot;
+        var localRotDiff = transform.InverseTransformDirection(worldRotDiff);
+        lastRot = transform.rotation.eulerAngles;
+
+        Debug.Log(localPosDiff*50 + ", " + localRotDiff*50);
+
+        Vector3 linear = localPosDiff*50;
+        Vector3 angular = localRotDiff*50;
+
+        velocity.linear = linear;
+        velocity.angular = angular;
+    }
+
+    public (Vector3 linear, Vector3 angular) GetVelocity() {
+        return velocity;
     }
 
     private void FixedUpdate() {
