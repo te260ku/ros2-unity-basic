@@ -52,3 +52,10 @@ def quaternion_from_euler(roll, pitch, yaw):
     q[3] = sy * cp * cr - cy * sp * sr
 
     return q
+
+def rotateVector(u, t):
+    t = np.deg2rad(t)
+    # 回転行列
+    R = np.array([[np.cos(t), -np.sin(t)],
+                  [np.sin(t),  np.cos(t)]])
+    return  np.dot(R, u)
