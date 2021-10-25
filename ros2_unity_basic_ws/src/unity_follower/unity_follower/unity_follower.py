@@ -2,6 +2,7 @@ import rclpy
 from rclpy.node import Node
 from geometry_msgs.msg import Twist
 from geometry_msgs.msg import Pose
+from geometry_msgs.msg import Vector3
 from nav_msgs.msg import Odometry
 from unity_follower.pose_functions import *
 from unity_follower.pid_controller import *
@@ -40,8 +41,10 @@ class UnityFollowerNode(Node):
         self.ros_pose = Pose()
         self.unity_pose = Pose()
 
-        self.PID_Pos = pid_controller(0.02, 0.1, 1.6, 0.5)
+        self.PID_Pos = pid_controller(0.5, 0.00, 0.01, 0.5)
         self.PID_Rot = pid_controller(0.5, 0.00, 0.01, 0.3)
+
+        self.i = 0
         
 
 
@@ -75,6 +78,8 @@ class UnityFollowerNode(Node):
             self.initialPose.orientation = received_ros_pose.orientation
             self.receivedFisrtOdom = True
 
+            self.lastPos = self.initialPose
+
         adjusted_ros_pose = Pose()
 
         adjusted_ros_pose.position.x = received_ros_pose.position.x - self.initialPose.position.x
@@ -83,6 +88,8 @@ class UnityFollowerNode(Node):
 
         self.ros_pose.position = adjusted_ros_pose.position
         self.ros_pose.orientation = received_ros_pose.orientation
+
+        
         
 
 
@@ -97,13 +104,12 @@ class UnityFollowerNode(Node):
         distance = calc_distance([self.unity_pose.position.x, self.unity_pose.position.y], [self.ros_pose.position.x, self.ros_pose.position.y])
 
         out_pos = self.PID_Pos.set_current_error(distance)
-        print('out_pos: "%s"' % out_pos)
+        # print('out_pos: "%s"' % out_pos)
 
         if distance > 0.05:
             self.twist.linear.x = out_pos if gap_pos_x > 0.05 or gap_pos_y > 0.05 else -out_pos
         else:
             self.twist.linear.x = 0.0
-
 
 
         # rotation
@@ -113,7 +119,7 @@ class UnityFollowerNode(Node):
         gap_rot = yaw_unity - yaw_ros
 
         out_rot = self.PID_Rot.set_current_error(gap_rot)
-        print('out_rot: "%s"' % out_rot)
+        # print('out_rot: "%s"' % out_rot)
 
         if out_rot > 0.008 or out_rot < -0.008:
             self.twist.angular.z = out_rot
@@ -123,8 +129,30 @@ class UnityFollowerNode(Node):
 
         msg = self.twist
         self.publisher_twist.publish(msg)
-    
 
+
+        # vec = (self.unity_pose.position.x - self.ros_pose.position.x, self.unity_pose.position.y - self.ros_pose.position.y)
+        # Ru = rotateVector(vec, -yaw_ros)
+
+        # A = np.array([self.unity_pose.position.x - self.ros_pose.position.x, self.unity_pose.position.y - self.ros_pose.position.y])
+        # B = np.array([1, 0])
+        # s = np.linalg.norm(A)
+        # t = 1.0
+        # x = np.inner(A,B)
+        # theta = np.arccos(x/(s*t))
+        # print(theta)
+        
+        # if distance > 0.05:
+        #     if Ru[0] > 0.001:
+        #         self.twist.linear.x = out_pos
+        #     elif Ru[0] < -0.001:
+        #         self.twist.linear.x = -out_pos
+        #     else:
+        #         self.twist.linear.x = 0.0
+        # else:
+        #     self.twist.linear.x = 0.0
+        
+        
 
 def main(args=None):
     rclpy.init(args=args)

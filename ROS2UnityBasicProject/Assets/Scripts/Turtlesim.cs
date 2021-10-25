@@ -31,10 +31,10 @@ public class Turtlesim : MonoBehaviour
         var localRotDiff = transform.InverseTransformDirection(worldRotDiff);
         lastRot = transform.rotation.eulerAngles;
 
-        Debug.Log(localPosDiff*50 + ", " + localRotDiff);
-
         Vector3 linear = localPosDiff*50;
-        Vector3 angular = localRotDiff;
+        Vector3 angular = localRotDiff*50 * Mathf.Deg2Rad;
+
+        Debug.Log(linear + ", " + angular);
 
         velocity.linear = linear;
         velocity.angular = angular;

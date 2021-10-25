@@ -20,7 +20,8 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
-            'unity_follower = unity_follower.unity_follower:main',
+            'unity_follower = unity_follower.unity_follower:main', 
+            'tf_test = unity_follower.test:main',
         ],
     },
 )
